@@ -48,15 +48,15 @@ public class LoggingManagerAspect {
     
     @Before("publicMethodInsideAClassMarkedWithDoLogging()")
     public void sendInfo(JoinPoint point){
-        DoLogging annotation = point.getThis().getClass().getAnnotation(DoLogging.class);
+        DoLogging annotation = point.getThis().getClass().getSuperclass().getAnnotation(DoLogging.class);
         LogModel logModel = logModelFactory.generateLog(point,INFO,"method args:");
         writers.forEach(w->w.writeLog(logModel,annotation.rootPath()));
         rootsToClean.putIfAbsent(annotation.rootPath(),annotation.cleanLogDaysAgo());
     }
 
     @AfterThrowing(pointcut ="publicMethodInsideAClassMarkedWithDoLogging()",throwing = "ex")
-    public void sendError(JoinPoint  point, Exception ex){
-        DoLogging annotation = point.getThis().getClass().getAnnotation(DoLogging.class);
+    public void sendError(JoinPoint  point, Throwable ex){
+        DoLogging annotation = point.getThis().getClass().getSuperclass().getAnnotation(DoLogging.class);
         LogModel logModel = logModelFactory.generateLog(point,ERROR,ex.getMessage());
         writers.forEach(w->w.writeLog(logModel,annotation.rootPath()));
         rootsToClean.putIfAbsent(annotation.rootPath(),annotation.cleanLogDaysAgo());

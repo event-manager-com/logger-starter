@@ -24,7 +24,9 @@ public class ExcelFileLogWriter implements LogWriter {
     @Override
     public void writeLog(LogModel log, String rootPath) {
         String filePath=resolveFilePath(log,rootPath);
-        File file = Files.createFile(Paths.get(filePath)).toFile();
+        File dir = Files.createDirectories(Paths.get(filePath)).toFile();
+        File file=
+                new File(dir.getAbsolutePath()+File.separatorChar+ log.getDate().getDayOfMonth()+ "_log.xlsx");
 
         XSSFWorkbook workbook=new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet( "logs from "+log.getDate());
@@ -68,11 +70,11 @@ public class ExcelFileLogWriter implements LogWriter {
         LocalDate date = log.getDate();
         rootPath=rootPath+
                 File.separatorChar+
+                "logs"+
+                File.separatorChar+
                 date.getYear()+
                 File.separatorChar+
-                date.getMonthValue() +
-                File.separatorChar+
-                date.getDayOfMonth()+ "_log.xlsx";
+                date.getMonthValue() ;
         return rootPath;
     }
 }

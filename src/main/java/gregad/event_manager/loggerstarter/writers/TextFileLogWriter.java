@@ -3,11 +3,9 @@ package gregad.event_manager.loggerstarter.writers;
 import gregad.event_manager.loggerstarter.aspect.LogModel;
 import lombok.SneakyThrows;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
@@ -20,9 +18,11 @@ public class TextFileLogWriter implements LogWriter {
     @Override
     public void writeLog(LogModel log,String rootPath) {
         String filePath=resolveFilePath(log,rootPath);
-        File file = Files.createDirectories(Paths.get(filePath)).toFile();
-        try(ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file))) {
-            outputStream.writeObject(log);
+        File dir = Files.createDirectories(Paths.get(filePath)).toFile();
+        File file= 
+                new File(dir.getAbsolutePath()+File.separatorChar+ log.getDate().getDayOfMonth()+ "_log.txt");
+        try(FileWriter writer =new FileWriter(file,true)) {
+            writer.append(log.toString());
         }catch (IOException e){
             //todo ask Evgeny 
         }
@@ -32,11 +32,11 @@ public class TextFileLogWriter implements LogWriter {
         LocalDate date = log.getDate();
         rootPath=rootPath+ 
                 File.separatorChar+
+                "logs"+
+                File.separatorChar+
                 date.getYear()+
                 File.separatorChar+
-                date.getMonthValue() +
-                File.separatorChar+
-                date.getDayOfMonth()+ "_log.txt";
+                date.getMonthValue();
 //        if (System.getProperty("os.name").toLowerCase().contains("win")){
 //            path=path.replace('/','\\');
 //        }

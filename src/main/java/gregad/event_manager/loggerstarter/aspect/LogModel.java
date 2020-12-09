@@ -30,6 +30,6 @@ public class LogModel implements Serializable {
 
     @Override
     public String toString() {
-        return date+"-"+time+"-type:["+logType+"]-resource:["+resource+"]-message:["+message+"]\n";
+        return date.toString()+"-"+time.toString()+"-type:["+logType+"]-resource:["+resource+"]-message:["+message+"]\n";
     }
 }
