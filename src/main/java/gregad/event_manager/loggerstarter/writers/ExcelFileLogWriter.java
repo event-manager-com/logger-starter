@@ -31,15 +31,17 @@ public class ExcelFileLogWriter implements LogWriter {
         XSSFWorkbook workbook=new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet( "logs from "+log.getDate());
         int lastRowNum=0;
-        
-        try (FileInputStream in=new FileInputStream(file)){
-            workbook = file.length()==0? new XSSFWorkbook():new XSSFWorkbook(in);
-            spreadsheet = workbook.getSheet( "logs from "+log.getDate());
-            lastRowNum = spreadsheet.getLastRowNum();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if (file.exists()) {
+            try (FileInputStream in=new FileInputStream(file)){
+                workbook = file.length()==0? new XSSFWorkbook():new XSSFWorkbook(in);
+                spreadsheet = workbook.getSheet( "logs from "+log.getDate());
+                lastRowNum = spreadsheet.getLastRowNum();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        
+
         XSSFRow row;
         if (lastRowNum==0){
             lastRowNum++;
