@@ -16,6 +16,18 @@ operation manual
      
   4. add to your application.properties file logging.file.format property
   
-      a.logging.file.format.text=boolean . if you put true to this property, will write logs to file .txt
+      a.logging.file.format.text=boolean . if you put true to this property, will write logs to file .txt  
       
       b.logging.file.format.excel=boolean . if you put true to this property, will write logs to file .xlsx
+      
+  5. if you want to send loggs with cloud karafka? add to your application.properties file     
+     
+      a.spring.kafka.bootstrap-servers=list of your rockets. for example{rocket-01.srvs.cloudkafka.com:9094,rocket-02.srvs.cloudkafka.com:9094,rocket-03.srvs.cloudkafka.com:9094}
+      
+      b.spring.kafka.properties.security.protocol=for example{SASL_SSL}
+      
+      c.spring.kafka.properties.sasl.mechanism=for example{SCRAM-SHA-256}
+      
+      d.spring.kafka.properties.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="{your user name}" password="{your password}";
+      
+      e.spring.cloud.stream.bindings.exceptionlog.destination=your destination topic. for example{flqd4b-exceptionlogdatastream}
