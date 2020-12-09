@@ -1,11 +1,11 @@
-package gregad.event_manager.loggerstarter.writers;
+package gregad.event_manager.loggerstarter.writers.services;
 
 import gregad.event_manager.loggerstarter.aspect.LogModel;
+import gregad.event_manager.loggerstarter.writers.interfaces.LogWriter;
 import lombok.SneakyThrows;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 

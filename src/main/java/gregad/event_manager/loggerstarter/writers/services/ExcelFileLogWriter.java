@@ -1,6 +1,7 @@
-package gregad.event_manager.loggerstarter.writers;
+package gregad.event_manager.loggerstarter.writers.services;
 
 import gregad.event_manager.loggerstarter.aspect.LogModel;
+import gregad.event_manager.loggerstarter.writers.interfaces.LogWriter;
 import lombok.SneakyThrows;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -12,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.time.LocalDate;
 
 /**

@@ -1,4 +1,4 @@
-package gregad.event_manager.loggerstarter.writers;
+package gregad.event_manager.loggerstarter.writers.interfaces;
 
 import gregad.event_manager.loggerstarter.aspect.LogModel;
 

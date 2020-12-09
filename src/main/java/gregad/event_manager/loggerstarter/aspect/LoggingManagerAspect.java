@@ -1,7 +1,7 @@
 package gregad.event_manager.loggerstarter.aspect;
 
 import gregad.event_manager.loggerstarter.cleaner.Cleaner;
-import gregad.event_manager.loggerstarter.writers.LogWriter;
+import gregad.event_manager.loggerstarter.writers.interfaces.LogWriter;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
