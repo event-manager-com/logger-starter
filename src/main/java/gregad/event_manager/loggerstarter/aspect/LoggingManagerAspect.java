@@ -50,7 +50,7 @@ public class LoggingManagerAspect {
     public void sendInfo(JoinPoint point){
         DoLogging annotation = point.getThis().getClass().getSuperclass().getAnnotation(DoLogging.class);
         LogModel logModel = logModelFactory.generateLog(point,INFO,"method args:");
-        writers.forEach(w->w.writeLog(logModel,annotation.rootPath()));
+        writers.forEach(w->w.writeLog(logModel,annotation.rootPath(),annotation));
         rootsToClean.putIfAbsent(annotation.rootPath(),annotation.cleanLogDaysAgo());
     }
 
@@ -58,7 +58,7 @@ public class LoggingManagerAspect {
     public void sendError(JoinPoint  point, Throwable ex){
         DoLogging annotation = point.getThis().getClass().getSuperclass().getAnnotation(DoLogging.class);
         LogModel logModel = logModelFactory.generateLog(point,ERROR,ex.getMessage());
-        writers.forEach(w->w.writeLog(logModel,annotation.rootPath()));
+        writers.forEach(w->w.writeLog(logModel,annotation.rootPath(),annotation));
         rootsToClean.putIfAbsent(annotation.rootPath(),annotation.cleanLogDaysAgo());
     }
 }

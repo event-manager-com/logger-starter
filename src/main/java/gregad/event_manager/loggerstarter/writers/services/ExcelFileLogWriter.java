@@ -1,5 +1,6 @@
 package gregad.event_manager.loggerstarter.writers.services;
 
+import gregad.event_manager.loggerstarter.aspect.DoLogging;
 import gregad.event_manager.loggerstarter.aspect.LogModel;
 import gregad.event_manager.loggerstarter.writers.interfaces.LogWriter;
 import lombok.SneakyThrows;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Greg Adler
@@ -22,7 +24,7 @@ public class ExcelFileLogWriter implements LogWriter {
     
     @SneakyThrows
     @Override
-    public void writeLog(LogModel log, String rootPath) {
+    public void writeLog(LogModel log, String rootPath, DoLogging annotation) {
         String filePath=resolveFilePath(log,rootPath);
         File dir = Files.createDirectories(Paths.get(filePath)).toFile();
         File file=
@@ -53,8 +55,8 @@ public class ExcelFileLogWriter implements LogWriter {
             row.createCell(4).setCellValue("message");
         }
         row=spreadsheet.createRow(lastRowNum+1);
-        row.createCell(0).setCellValue(log.getDate().toString());
-        row.createCell(1).setCellValue(log.getTime().toString());
+        row.createCell(0).setCellValue(log.getDate().format(DateTimeFormatter.ofPattern(annotation.dateFormat())));
+        row.createCell(1).setCellValue(log.getTime().format(DateTimeFormatter.ofPattern(annotation.timeFormat())));
         row.createCell(2).setCellValue(log.getLogType());
         row.createCell(3).setCellValue(log.getResource());
         row.createCell(4).setCellValue(log.getMessage());

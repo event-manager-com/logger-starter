@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Greg Adler
@@ -20,16 +21,15 @@ import java.time.LocalTime;
 public class LogModel implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    @DateTimeFormat(pattern = "YYYY/MM/DD")
+ //   @DateTimeFormat(pattern = "YYYY/MM/DD")
     private LocalDate date;
-    @DateTimeFormat(pattern = "hh:mm:ss")
+ //   @DateTimeFormat(pattern = "hh:mm:ss")
     private LocalTime time;
     private String logType;
     private String resource;
     private String message;
-
-    @Override
-    public String toString() {
-        return date.toString()+"-"+time.toString()+"-type:["+logType+"]-resource:["+resource+"]-message:["+message+"]\n";
+    
+    public String asString(String dateFormat, String timeFormat) {
+        return date.format(DateTimeFormatter.ofPattern(dateFormat))+"-"+time.format(DateTimeFormatter.ofPattern(timeFormat))+"-type:["+logType+"]-resource:["+resource+"]-message:["+message+"]\n";
     }
 }

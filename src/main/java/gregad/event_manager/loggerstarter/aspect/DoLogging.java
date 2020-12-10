@@ -10,4 +10,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface DoLogging {
     String rootPath() default ".";
     int cleanLogDaysAgo() default 30;
+    String dateFormat() default "YYYY/MM/DD";
+    String timeFormat() default "hh:mm:ss";
 }

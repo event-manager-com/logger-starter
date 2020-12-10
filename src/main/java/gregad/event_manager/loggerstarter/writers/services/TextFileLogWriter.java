@@ -1,5 +1,6 @@
 package gregad.event_manager.loggerstarter.writers.services;
 
+import gregad.event_manager.loggerstarter.aspect.DoLogging;
 import gregad.event_manager.loggerstarter.aspect.LogModel;
 import gregad.event_manager.loggerstarter.writers.interfaces.LogWriter;
 import lombok.SneakyThrows;
@@ -16,13 +17,13 @@ public class TextFileLogWriter implements LogWriter {
     
     @SneakyThrows
     @Override
-    public void writeLog(LogModel log,String rootPath) {
+    public void writeLog(LogModel log,String rootPath, DoLogging annotation) {
         String filePath=resolveFilePath(log,rootPath);
         File dir = Files.createDirectories(Paths.get(filePath)).toFile();
         File file= 
                 new File(dir.getAbsolutePath()+File.separatorChar+ log.getDate().getDayOfMonth()+ "_log.txt");
         try(FileWriter writer =new FileWriter(file,true)) {
-            writer.append(log.toString());
+            writer.append(log.asString(annotation.dateFormat(),annotation.timeFormat()));
         }catch (IOException e){
             //todo ask Evgeny 
         }
