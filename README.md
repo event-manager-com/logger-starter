@@ -25,6 +25,10 @@ operation manual
       
       b.logging.file.format.excel=boolean . if you put true to this property, will write logs to file .xlsx
       
+      c.logging.file.format.kafka=boolean . if you put true to this property, will send logs to cloud karafka topic, you need also to add some properties(see later in 5)
+      
+      d.logging.file.format.cron-expresion=String if you want to configure time of scheduled clean old logs mechanism. default "0 0 3 * * *"
+      
   5. If you want to send loggs with cloud karafka? add to your application.properties file     
      
       a.spring.kafka.bootstrap-servers=list of your rockets. for example{rocket-01.srvs.cloudkafka.com:9094,rocket-02.srvs.cloudkafka.com:9094,rocket-      03.srvs.cloudkafka.com:9094}
