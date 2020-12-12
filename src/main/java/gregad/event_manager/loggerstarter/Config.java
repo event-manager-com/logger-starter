@@ -25,7 +25,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         SecurityProperty.class,
         SaslProperty.class,
         JaasProperty.class,
-        Exceptionlog.class})
+        Output.class})
 @Configuration
 @EnableScheduling
 @ConditionOnAnyExcelOrTextOrKafkaProperty

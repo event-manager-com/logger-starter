@@ -2,7 +2,6 @@ package gregad.event_manager.loggerstarter.writers.properties.kafka;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author Greg Adler
@@ -11,5 +10,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 public class Bindings {
-    private Exceptionlog exceptionlog;
+    private Output output;
 }

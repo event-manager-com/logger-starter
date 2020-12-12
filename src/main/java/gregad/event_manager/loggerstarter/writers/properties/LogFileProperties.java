@@ -13,4 +13,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class LogFileProperties {
     private boolean text;
     private boolean excel;
+    private boolean kafka;
 }

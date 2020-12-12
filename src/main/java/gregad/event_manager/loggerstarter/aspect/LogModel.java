@@ -21,9 +21,7 @@ import java.time.format.DateTimeFormatter;
 public class LogModel implements Serializable {
     private static final long serialVersionUID = 1L;
     
- //   @DateTimeFormat(pattern = "YYYY/MM/DD")
     private LocalDate date;
- //   @DateTimeFormat(pattern = "hh:mm:ss")
     private LocalTime time;
     private String logType;
     private String resource;

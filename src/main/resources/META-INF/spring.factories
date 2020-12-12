@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=gregad.event_manager.loggerstarter.Config
+
         

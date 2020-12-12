@@ -1,6 +1,7 @@
 package gregad.event_manager.loggerstarter.writers.conditions;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.AllNestedConditions;
 import org.springframework.boot.autoconfigure.condition.AnyNestedCondition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,7 @@ public class OnExcelOrTextOrKafkaPropertyCondition extends AnyNestedCondition {
     public OnExcelOrTextOrKafkaPropertyCondition() {
         super(ConfigurationPhase.PARSE_CONFIGURATION);
     }
-    @ConditionOnAllKafkaProperties
+    @ConditionalOnProperty(name = "logging.file.format.kafka")
     public static class OnAllKafkaPropertyCondition {}
 
     @ConditionalOnProperty(name = "logging.file.format.excel")

@@ -4,6 +4,7 @@ package gregad.event_manager.loggerstarter.aspect;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -16,11 +17,13 @@ import java.time.format.ResolverStyle;
  * @author Greg Adler
  */
 public class LogModelFactory {
+    @Value("${spring.application.name}")
+    private String serviceName;
     
     public LogModel generateLog(JoinPoint point, String logType, String messagePrefix){
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-        String resource=getResource(point);
+        String resource=serviceName+"->"+getResource(point);
         String message=logType.equals(Constants.INFO)?getMessage(point,messagePrefix):messagePrefix;
         return new LogModel(date,time,logType,resource,message);
     }

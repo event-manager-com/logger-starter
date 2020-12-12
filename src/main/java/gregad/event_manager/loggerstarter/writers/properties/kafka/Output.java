@@ -10,6 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "spring.cloud.stream.bindings.exceptionlog")
 @Getter
 @Setter
-public class Exceptionlog {
+public class Output {
     private String destination;
 }
