@@ -14,4 +14,5 @@ public class LogFileProperties {
     private boolean text;
     private boolean excel;
     private boolean kafka;
+    private String cronExpresion;
 }

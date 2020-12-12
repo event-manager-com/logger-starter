@@ -2,6 +2,7 @@ package gregad.event_manager.loggerstarter.aspect;
 
 import gregad.event_manager.loggerstarter.cleaner.Cleaner;
 import gregad.event_manager.loggerstarter.writers.interfaces.LogWriter;
+import gregad.event_manager.loggerstarter.writers.properties.LogFileProperties;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,13 +29,22 @@ public class LoggingManagerAspect {
     private LogModelFactory logModelFactory;
     @Autowired
     private Cleaner cleaner;
-    
+    @Autowired
+    private LogFileProperties logFileProperties;
     
     private ConcurrentHashMap<String,Integer> rootsToClean=new ConcurrentHashMap<>();
     
-    @Scheduled(cron = "0 0 3 * * *")
+    @Scheduled(cron = "#{loggingManagerAspect.getCronExpresion()}")
     public void doCleanLog(){
         rootsToClean.forEach((key, value) -> cleaner.clean(key, value));
+    }
+    public String getCronExpresion(){
+        String exp=
+               logFileProperties.getCronExpresion() ==null?
+                        "0 0 3 * * *":
+                        logFileProperties.getCronExpresion();
+        System.out.println(exp);
+        return exp;
     }
     
 
