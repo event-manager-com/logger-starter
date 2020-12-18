@@ -43,7 +43,7 @@ public class Config {
         return new ExcelFileLogWriter();
     }
     
-    @ConditionOnAllKafkaProperties
+    @ConditionalOnProperty("logging.file.format.kafka")
     @Bean
     public KafkaLogWriter kafkaLogWriter(){
         return new KafkaLogWriter();
